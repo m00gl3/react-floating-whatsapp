@@ -6,8 +6,9 @@ import postcss from 'rollup-plugin-postcss'
 import autoprefixer from 'autoprefixer'
 import terser from '@rollup/plugin-terser'
 import url from '@rollup/plugin-url'
+import json from '@rollup/plugin-json'
 
-import packageJson from './package.json'
+import packageJson from './package.json' assert { type: 'json' }
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -27,7 +28,8 @@ export default {
     typescript({
       exclude: ['src/stories/**']
     }),
-    terser()
+    terser(),
+    json()
   ],
   output: {
     file: packageJson.main,
