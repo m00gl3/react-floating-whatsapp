@@ -3,10 +3,7 @@ import { reducer } from '../reducer'
 import { WhatsappSVG, CloseSVG, CheckSVG, SendSVG } from './Icons'
 import css from '../styles.module.css'
 
-import darkBG from './assets/bg-chat-tile-light.png'
 import lightBG from './assets/bg-chat-tile-dark.png'
-import dummyAvatar from './assets/uifaces-avatar.jpg'
-import SoundBeep from './assets/whatsapp-notification.mp3'
 
 export interface FloatingWhatsAppProps {
   /** Callback function fires on click */
@@ -50,8 +47,6 @@ export interface FloatingWhatsAppProps {
   notificationLoop?: number
   /** Enable notification sound */
   notificationSound?: boolean
-  /** Notification sound custom src */
-  notificationSoundSrc?: string
   /** Inline style applied to notification */
   notificationStyle?: React.CSSProperties
   /** CSS className applied to notification */
@@ -61,8 +56,6 @@ export interface FloatingWhatsAppProps {
   allowClickAway?: boolean
   /** Closes the chat box if `Escape` key is clicked */
   allowEsc?: boolean
-  /** Enable / Disable dark mode */
-  darkMode?: boolean
   /** Inline style  applied to the main wrapping `Div` */
   style?: React.CSSProperties
   /** CSS className applied to the main wrapping `Div` */
@@ -83,7 +76,7 @@ export function FloatingWhatsApp({
 
   phoneNumber = '1234567890',
   accountName = 'Account Name',
-  avatar = dummyAvatar,
+  avatar = '',
   statusMessage = 'Typically replies within 1 hour',
   chatMessage = 'Hello there! 🤝 \nHow can we help?',
   placeholder = 'Type a message..',
@@ -97,7 +90,6 @@ export function FloatingWhatsApp({
   notificationDelay = 60,
   notificationLoop = 0,
   notificationSound = false,
-  notificationSoundSrc = SoundBeep,
   notificationStyle,
   notificationClassName = 'floating-whatsapp-notification',
 
@@ -108,7 +100,6 @@ export function FloatingWhatsApp({
   chatboxStyle,
   chatboxClassName = 'floating-whatsapp-chatbox',
 
-  darkMode = false,
   style,
   className = 'floating-whatsapp'
 }: FloatingWhatsAppProps) {
@@ -208,7 +199,7 @@ export function FloatingWhatsApp({
   }, [allowEsc, isOpen, handleClose])
 
   return (
-    <div className={`${css.floatingWhatsapp} ${darkMode ? `${css.dark} ` : ''} ${className}`} style={style}>
+    <div className={`${css.floatingWhatsapp} ${className}`} style={style}>
       <div
         className={`${css.whatsappButton} ${buttonClassName}`}
         onClick={handleOpen}
@@ -242,7 +233,7 @@ export function FloatingWhatsApp({
           </div>
         </header>
 
-        <div className={css.chatBody} style={{ backgroundImage: `url(${darkMode ? darkBG : lightBG})` }}>
+        <div className={css.chatBody} style={{ backgroundImage: `url(${lightBG})` }}>
           {isDelay ? (
             <div className={css.chatBubble}>
               <div className={css.typing}>
@@ -275,7 +266,7 @@ export function FloatingWhatsApp({
           </form>
         </footer>
       </div>
-      {notificationSound && <audio ref={soundRef} hidden src={notificationSoundSrc} />}
+      {/* notificationSound && <audio ref={soundRef} hidden src={notificationSoundSrc} /> */}
     </div>
   )
 }
