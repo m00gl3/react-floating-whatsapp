@@ -3,8 +3,6 @@ import { reducer } from '../reducer'
 import { WhatsappSVG, CloseSVG, CheckSVG, SendSVG } from './Icons'
 import css from '../styles.module.css'
 
-import lightBG from './assets/bg-chat-tile-dark.png'
-
 export interface FloatingWhatsAppProps {
   /** Callback function fires on click */
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void
@@ -233,7 +231,14 @@ export function FloatingWhatsApp({
           </div>
         </header>
 
-        <div className={css.chatBody} style={{ backgroundImage: `url(${lightBG})` }}>
+        <div
+          className={css.chatBody}
+          style={
+            {
+              /* backgroundImage: `url(${lightBG})` */
+            }
+          }
+        >
           {isDelay ? (
             <div className={css.chatBubble}>
               <div className={css.typing}>
